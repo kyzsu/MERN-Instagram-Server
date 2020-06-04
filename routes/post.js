@@ -16,8 +16,8 @@ router.get('/allpost',(req,res)=>{
 })
 
 router.post('/createpost',requireLogin,(req,res)=>{
-    const {title,body} = req.body
-    if(!title || !body){
+    const {title,body, img} = req.body
+    if(!title || !body || !img){
         return res.status(422).json({error:"Please add a title and caption"})
     }
     // console.log(req.user)
@@ -27,6 +27,7 @@ router.post('/createpost',requireLogin,(req,res)=>{
     const post = new Post({
         title,
         body,
+        img,
         postedBy:req.user
     })
     post.save().then(result=>{
